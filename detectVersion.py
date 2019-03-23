@@ -6,7 +6,7 @@ import re
 def execute(cmd):
 	out, error = sub.Popen([cmd], stdout=sub.PIPE, stderr=sub.PIPE, shell=True).communicate()
 	results = out.split('\n')
-	if error and cmd.split(' ')[0] != "curl" and cmd.split(' ')[0] != "for":
+	if error and cmd.split(' ')[0] != "curl" and cmd.split(' ')[0] != "crontab":
 		print "\n********ERROR********\n"
 		print error
 		print "*********************\n"
@@ -110,13 +110,21 @@ if ddos_conf == "y" or ddos_conf == "yes":
 
 
 #CRONJOB CHECKING
-print "\nChecking Suspicious Cronjobs/Crontabs"
-jobs = execute("for user in $(cut -f1 -d: /etc/passwd); do crontab -u $user -l; done")
-if jobs:
-	for line in jobs:
-		if line:
-			if line[0] != '#':
-				print line
+print "\n<=====Checking Suspicious Cronjobs/Crontabs=====>\n"
+users = execute("cut -f1 -d: /etc/passwd")
+
+for user in users:
+	cronjob = execute("crontab -u " + user + " -l")
+	if cronjob[0] != '':
+		print "Found Cronjob(s) For " + user + ":"
+		for line in cronjob:
+			if line:
+				if line[0] != '#':
+					 print line + "\n"
+		delete = raw_input("Would You Like To Delete All Cronjobs For " + user + "? (Y/n)").lower()
+		if delete == "y" or delete == "yes":
+			execute("crontab -u " + user + " -r")
+			print "\nAll Cronjobs Deleted For " + user + "\n"
 
 
 
