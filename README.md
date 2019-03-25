@@ -4,5 +4,5 @@ A basic Linux securing tool for enthusiasts trying to quickly and easily secure 
 - python2.7
 ## Installation
 Script must be run as root:
-> sudo secureme.py
+'''sudo secureme.py'''
 
