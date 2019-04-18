@@ -5,10 +5,11 @@ import re
 from detectVersion import detectVersion
 from cronCheck import cronCheck
 from fwConf import fwConf,ddosConf
+from checkUsers import checkUsers
 #from execCommand import execCommand
 
 def main():
-	flags = ['--version', '-v', '--cron', '-c', '--firewall', '-f', '--ddos', '-d', '--help', '-h']
+	flags = ['--version', '-v', '--cron', '-c', '--firewall', '-f', '--ddos', '-d', '-u', '--user', '--help', '-h']
 	arguments = sys.argv[1:len(sys.argv)]
 	#print arguments
 	for flag in arguments:
@@ -30,6 +31,8 @@ def main():
 	if flags[6] in sys.argv or flags[7] in sys.argv:
 		ddosConf()
 	if flags[8] in sys.argv or flags[9] in sys.argv:
+		checkUsers()
+	if flags[10] in sys.argv or flags[11] in sys.argv:
 		print("\nusage: sudo python SecureMe.py [-h, --help][-v][-c][-f][-d]\n")
 		print("Options:")
 		print("    -h, --help\t\tDisplay Help Message")
