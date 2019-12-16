@@ -39,7 +39,8 @@ def main():
 		print("    -c, --cron\t\tCheck/Remove Cronjobs")
 		print("    -d, --ddos\t\tConfigure DDoS Protection")
 		print("    -f, --firewall\tConfigure Firewall Settings")
-		print("    -v, --version\tCheck System Information\n")
+		print("    -u, --user\t\tCheck/Remove User Privileges")
+                print("    -v, --version\tCheck System Information\n")
 
 if __name__== "__main__":
   main()

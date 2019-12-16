@@ -10,7 +10,7 @@ from execCommand import execute
 def detectVersion():
 	print("\n<========Getting System Info========>\n")
 	version = execute("cat /etc/issue")
-	priv_ip = execute("hostname -I")
+	priv_ip = execute("hostname -I | cut -d' ' -f1")
 	ifconfig = execute("ifconfig | grep " + priv_ip[0])[0].split(" ")
 	mask = ifconfig[ifconfig.index('netmask') + 1]
 	broad = ifconfig[ifconfig.index('broadcast') + 1]
